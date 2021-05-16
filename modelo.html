@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="César Sánchez">
+    <meta name="generator" content="">
+    <title>Visualizador para sublimaciones</title>
+    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+    
+  </head>
+  <body>
+    
+<header>
+  <div class="collapse bg-dark" id="navbarHeader">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 col-md-7 py-4">
+          <h4 class="text-white">Acerca del visualizador para sublimaciones</h4>
+          <p class="text-muted">Se pretende presentar modelos 3d prefabricados en los que se les puede cambiar el material por una imagen brindada por el usuario.</p>
+        </div>
+        <div class="col-sm-4 offset-md-1 py-4">
+          <h4 class="text-white">¿Tienes dudas?, contáctame</h4>
+          <ul class="list-unstyled">
+            <li><a href="https://twitter.com/cesaqui89" target="_blank" class="text-white">Follow on Twitter</a></li>
+            <li><a href="https://www.facebook.com/cesaqui89" target="_blank" class="text-white">Like on Facebook</a></li>
+            <li><a href="mailto:cesaqui89@gmail.com" class="text-white">Email me</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="navbar navbar-dark bg-dark shadow-sm">
+    <div class="container">
+      <a href="#" class="navbar-brand d-flex align-items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+        <strong>Visualizador para sublimaciones</strong>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+  </div>
+</header>
+<main>
+  <section class="py-1 text-center container">
+    <div class="row py-lg-1">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-light">Galería de modelos</h1>
+        <p class="lead text-muted">Para iniciar, selecciona un modelo.</p>
+         <p>
+          <a href="index.html" class="btn btn-primary my-2">Volver a seleccionar modelo</a>
+        <!--  <a href="#" class="btn btn-secondary my-2">Secondary action</a>-->
+        </p> 
+      </div>
+    </div>
+  </section>
+  <section class="py-1 text-center container">
+  <div class="row py-lg-1">
+    <div class="col-lg-8 col-md-4 mx-auto">
+      <div id="contenedorPrincipal" class="container" >
+        <div id="elCanvas" class="container text-center"></div>
+      </div>
+  </div>
+</div>
+</section>
+  <section class="text-center container">
+    <div class="row py-lg-1">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <p class="lead text-muted">Selecciona una imagen y luego aplicar.</p>
+         <p id="parrafoBotones" class="btn-group" role="group">
+          <img style="width: 200px; height: 100px;" id="imagen" src="assets/cara_template2.png" alt="">
+        </p> 
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="text-muted py-1">
+  <div class="container">
+    <p class="float-end mb-1">
+      <a href="#">Back to top</a>
+    </p>
+    <p class="mb-1">Album example es &copy; Bootstrap, pero fue personalizada por mí!</p>
+    <!-- <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a href="../getting-started/introduction/">getting started guide</a>.</p> -->
+  </div>
+</footer>
+  <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module">
+      //botonAplicar
+      var botonAplicar = document.createElement("button");
+      botonAplicar.id = "Aplicar";
+      botonAplicar.innerHTML = "Aplicar";     
+      botonAplicar.addEventListener ("click", function() {
+        setAnotherTexture();
+      });
+      botonAplicar.className="btn btn-primary my-2";
+
+      var inputFiles=document.createElement('input');
+      inputFiles.type="file";
+      inputFiles.id="elFiles";
+      inputFiles.className="form-control-file my-2";
+      var laImagen = document.getElementById("imagen");
+      inputFiles.addEventListener('change', function(){
+        var file =  document.getElementById("elFiles").files[0];
+        getBase64(file).then(data => laImagen.src= data);
+      });
+
+      var botonCrearImagen = document.createElement("button");
+      botonCrearImagen.id = "Descargar";
+      botonCrearImagen.innerHTML = "Descargar imagen";     
+      botonCrearImagen.addEventListener ("click", function() {
+        createImage();
+      });
+      botonCrearImagen.className="btn btn-primary my-2";
+
+      var body = document.getElementById("parrafoBotones");
+      body.appendChild(inputFiles);
+      body.appendChild(botonAplicar);
+      body.appendChild(botonCrearImagen);
+      //funciones auxiliares
+      function setAnotherTexture() {
+        //var textureColor = document.getElementById("colorOption").value;
+        var textureLoader = new THREE.TextureLoader();
+        
+        var newTexture = textureLoader.load( document.getElementById("imagen").src);
+        
+        newTexture.encoding = THREE.sRGBEncoding;
+        newTexture.flipY = false;
+
+      if(!objetoMesh){
+          return;
+      }
+        objetoMesh.traverse( function ( child ) {
+          
+          if (child instanceof THREE.Mesh) {
+          if(child.name =="Cylinder001"){
+              child.material.map = newTexture;
+              child.material.needsUpdate = true;
+              child.material.map.needsUpdate = true;
+            }
+          }
+        });
+      }
+
+      function getBase64(file) {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = () => resolve(reader.result);
+          reader.onerror = error => reject(error);
+        });
+      }
+
+      function createImage() {
+        var canvas = document.getElementById("CanvasPrincipal");
+        render();
+        var url = renderer.domElement.toDataURL();
+        var link = document.createElement('a');
+        link.setAttribute('href', url);
+        link.setAttribute('target', '_blank');
+        link.setAttribute('download', "imagen");
+        link.click();
+      }
+
+      ///THREE Librería
+      import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r127/build/three.module.js';
+      import {OrbitControls} from 'https://threejsfundamentals.org/threejs/resources/threejs/r127/examples/jsm/controls/OrbitControls.js';
+      import {GLTFLoader} from 'https://threejsfundamentals.org/threejs/resources/threejs/r127/examples/jsm/loaders/GLTFLoader.js';
+
+
+      /*         if (!Detector.webgl) {
+            Detector.addGetWebGLMessage();
+        } */
+
+        var container;
+
+        var camera, controls, scene, renderer;
+        var lighting, ambient, keyLight, fillLight, backLight, otraLuz, luzSuperior;
+          var objetoMesh;
+        var windowHalfX = window.innerWidth / 4;
+        var windowHalfY = window.innerHeight / 4;
+
+        init();
+        animate();
+
+        function init() {
+
+            container = document.getElementById('elCanvas');
+           
+            /* Camera */
+
+            camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000);
+            camera.position.z = 6;
+
+            /* Scene */
+
+            scene = new THREE.Scene();
+            lighting = false;
+
+            ambient = new THREE.AmbientLight(0xffffff, 0.3);
+            scene.add(ambient);
+
+            keyLight = new THREE.DirectionalLight(new THREE.Color('white'),0.5);//'hsl(240, 100%, 75%)'), 1);
+            keyLight.position.set(1, 0, 0);
+
+            fillLight = new THREE.DirectionalLight(new THREE.Color('white'),0.5);//'hsl(240, 100%, 75%)'), 1);
+            fillLight.position.set(-1, 0, 0);
+
+            otraLuz = new THREE.DirectionalLight(new THREE.Color('white'),0.5);//'hsl(240, 100%, 75%)'), 1);
+            otraLuz.position.set(0, 0, -1);
+
+            backLight = new THREE.DirectionalLight(new THREE.Color('white'), 0.5);
+            backLight.position.set(0, 0, 1);//.normalize();
+
+            luzSuperior = new THREE.DirectionalLight(new THREE.Color('white'), 0.5);
+            luzSuperior.position.set(0, 1, 0);//.normalize();
+
+            /* Model */
+          const gltfLoader = new GLTFLoader();
+          gltfLoader.load('assets/taza.gltf', (gltf) => {
+            const root = gltf.scene;
+            root.position.set(0,-1,0);
+            objetoMesh = gltf.scene;
+            scene.add(root);
+          });
+             /* Renderer */
+
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setSize(window.innerWidth/2, window.innerHeight/2);
+            renderer.setClearColor(new THREE.Color("hsl(0, 0%, 10%)"));
+            renderer.domElement.id = 'CanvasPrincipal';
+            container.appendChild(renderer.domElement);
+
+            /* Controls */
+
+            controls = new OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.25;
+            controls.enableZoom = true;
+
+            /* Events */
+
+            window.addEventListener('resize', onWindowResize, false);
+            window.addEventListener('keydown', onKeyboardEvent, false);
+            AplicarLuz();
+        }
+
+        function onWindowResize() {
+            var w = document.getElementById('CanvasPrincipal').offsetWidth;
+            var h = document.getElementById('CanvasPrincipal').offsetHeight;
+            windowHalfX = w/ 4;
+            windowHalfY = h / 4;
+
+            camera.aspect = w / h;
+            camera.updateProjectionMatrix();
+
+            renderer.setSize(w, h);
+
+        }
+
+        function onKeyboardEvent(e) {
+
+            if (e.code === 'KeyL') {
+
+               AplicarLuz();
+
+            }
+
+        }
+function AplicarLuz(){
+  lighting = !lighting;
+
+if (lighting) {
+
+    ambient.intensity = 0.1;
+    scene.add(keyLight);
+    scene.add(fillLight);
+    scene.add(backLight);
+    scene.add(otraLuz);
+    scene.add(luzSuperior);
+    
+
+} else {
+
+    ambient.intensity = 0.7;
+    scene.remove(keyLight);
+    scene.remove(fillLight);
+    scene.remove(backLight);
+    scene.remove(otraLuz);
+    scene.remove(luzSuperior);
+}
+}
+        function animate() {
+
+            requestAnimationFrame(animate);
+
+            controls.update();
+
+            render();
+
+        }
+
+        function render() {
+
+            renderer.render(scene, camera);
+            
+
+        }
+      // FIN DE THREE
+  </script>
+  </body>
+</html>
