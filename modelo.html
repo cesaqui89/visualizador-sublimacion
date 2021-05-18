@@ -237,8 +237,23 @@
             backLight = new THREE.DirectionalLight(new THREE.Color('white'), 0.6);
             backLight.position.set(0, 0, 1);//.normalize();
 
-            luzSuperior = new THREE.DirectionalLight(new THREE.Color('white'), 0.6);
-            luzSuperior.position.set(0, 1, 0);//.normalize();
+            luzSuperior = new THREE.DirectionalLight(new THREE.Color('white'), 0.8);
+            luzSuperior.position.set(0, 1, 0);//
+
+            var cubeMap = new THREE.CubeTexture( [] );
+            cubeMap.format = THREE.RGBFormat;
+            
+            var loader = new THREE.ImageLoader();
+            const path = "texturas/cube/xmas/";
+				    const format = '.png';
+				    const urls = [
+					    path + 'px' + format, path + 'nx' + format,
+					    path + 'py' + format, path + 'ny' + format,
+					    path + 'pz' + format, path + 'nz' + format
+				    ];
+
+				    const textureCube = new THREE.CubeTextureLoader().load( urls );
+            scene.background = textureCube;
 
             /* Model */
           const gltfLoader = new GLTFLoader();
@@ -298,12 +313,12 @@ function AplicarLuz(){
 
 if (lighting) {
 
-    ambient.intensity = 0.1;
-    scene.add(keyLight);
+    ambient.intensity = 0.08;
+     scene.add(keyLight);
     scene.add(fillLight);
     scene.add(backLight);
     scene.add(otraLuz);
-    scene.add(luzSuperior);
+    scene.add(luzSuperior); 
     
 
 } else {
