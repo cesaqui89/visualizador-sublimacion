@@ -69,17 +69,18 @@
         <p class="lead text-muted">Para iniciar, selecciona un modelo.</p>
          <p>
           <a href="index.html" class="btn btn-primary my-2">Volver a seleccionar modelo</a>
-        <!--  <a href="#" class="btn btn-secondary my-2">Secondary action</a>-->
         </p> 
       </div>
     </div>
   </section>
-  <section class="py-1 text-center container">
-  <div class="row py-lg-1">
-    <div class="col-lg-8 col-md-4 mx-auto">
-      <div id="contenedorPrincipal" class="container" >
-        <div id="elCanvas" class="container text-center"></div>
-      </div>
+  <section class="col-sm-8 col-md-7 py-4 container">
+  <div class="row py-lg-1 col-lg-8">
+    <div class="col-lg-8 col-md-1 mx-auto">
+      <figure>
+        <div id="contenedorPrincipal" class="container figure-img img-fluid rounded" >
+          <div id="elCanvas" class="container text-center"></div>
+        </div>
+      </figure>
   </div>
 </div>
 </section>
@@ -87,9 +88,14 @@
     <div class="row py-lg-1">
       <div class="col-lg-6 col-md-8 mx-auto">
         <p class="lead text-muted">Selecciona una imagen y luego aplicar.</p>
-         <p id="parrafoBotones" class="btn-group" role="group">
-          <img style="width: 200px; height: 100px;" id="imagen" src="assets/cara_template2.png" alt="">
-        </p> 
+          <div id="parrafoBotones" class="row">
+            <div class="col">
+              <label for="imagen">Vista previa</label>
+            </div>
+            <div class="col">
+              <img style="width: 200px; height: 100px;" id="imagen" src="assets/cara_template2.png" alt="">
+            </div>
+          </div>
       </div>
     </div>
   </section>
@@ -104,7 +110,6 @@
     <!-- <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a href="../getting-started/introduction/">getting started guide</a>.</p> -->
   </div>
 </footer>
-  <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
   <script type="module">
       //botonAplicar
       var botonAplicar = document.createElement("button");
